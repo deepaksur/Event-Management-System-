@@ -1,0 +1,78 @@
+unmanaged implementation in class ZCIT_EVT_I_CL unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZCIT_EVT_HI alias EventHeader
+  implementation in class ZCIT_EVT_H_CL unique
+  draft table ZCIT_EVT_HD
+  lock master total etag LocalLastChangedAt
+  authorization master ( instance )
+  etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+  draft action Activate optimized;
+  draft action Discard;
+
+  field ( mandatory : create ) EventId;
+  field ( readonly : update ) EventId;
+  field ( readonly ) LocalLastChangedAt;
+
+  association _session { create; with draft; }
+
+  mapping for ZCIT_EVT_H
+  {
+    EventId             = eventid;
+    EventName           = eventname;
+    EventType           = eventtype;
+    VenueCity           = venuecity;
+    VenueRoom           = venueroom;
+    StartDate           = startdate;
+    EndDate             = enddate;
+    MaxCapacity         = maxcapacity;
+    RegistrationFee     = registrationfee;
+    Currency            = currency;
+    Status              = status;
+    LocalCreatedBy      = local_created_by;
+    LocalCreatedAt      = local_created_at;
+    LocalLastChangedBy  = local_last_changed_by;
+    LocalLastChangedAt  = local_last_changed_at;
+  }
+}
+
+define behavior for ZCIT_EVT_II alias EventSession
+  implementation in class ZCIT_EVT_I_H unique
+  draft table ZCIT_EVT_ID
+  lock dependent by _event
+  authorization dependent by _event
+  etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  field ( readonly : update, mandatory : create ) SessionNumber;
+  field ( readonly ) EventId;
+
+  association _event { with draft; }
+
+  mapping for ZCIT_EVT_I
+  {
+    EventId         = eventid;
+    SessionNumber   = sessionnumber;
+    SessionTopic    = sessiontopic;
+    SpeakerName     = speakername;
+    SessionRoom     = sessionroom;
+    SessionStart    = sessionstart;
+    SessionEnd      = sessionend;
+    SessionDate     = sessiondate;
+    LocalCreatedBy  = local_created_by;
+    LocalCreatedAt  = local_created_at;
+    LocalLastChangedBy  = local_last_changed_by;
+    LocalLastChangedAt  = local_last_changed_at;
+  }
+}

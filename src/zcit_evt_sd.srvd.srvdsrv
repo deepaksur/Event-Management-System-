@@ -1,0 +1,5 @@
+@EndUserText.label: 'Event Mgmt Service Definition'
+define service ZCIT_EVT_SD {
+  expose ZCIT_EVT_HC;
+  expose ZCIT_EVT_IC;
+}

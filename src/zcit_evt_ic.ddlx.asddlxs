@@ -1,0 +1,62 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Session',
+    typeNamePlural: 'Sessions',
+    title: { type: #STANDARD, label: 'Session', value: 'SessionNumber' }
+  }
+}
+annotate entity ZCIT_EVT_IC with
+{
+  @UI.facet: [
+    {
+      id: 'SessionDtl',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Session Details',
+      position: 10
+    }
+  ]
+
+  @UI: { lineItem: [{position:10,label:'Event ID'}],
+         identification: [{position:10,label:'Event ID'}] }
+  EventId;
+
+  @EndUserText.label: 'Session Number'
+  @UI: { lineItem: [{position:20,label:'Session No.'}],
+         identification: [{position:20,label:'Session No.'}] }
+  SessionNumber;
+
+  @UI: { lineItem: [{position:30,label:'Topic'}],
+         identification: [{position:30,label:'Topic'}] }
+  SessionTopic;
+
+  @UI: { lineItem: [{position:40,label:'Speaker'}],
+         identification: [{position:40,label:'Speaker'}] }
+  SpeakerName;
+
+  @UI: { lineItem: [{position:50,label:'Room'}],
+         identification: [{position:50,label:'Room'}] }
+  SessionRoom;
+
+  @UI: { lineItem: [{position:60,label:'Date'}],
+         identification: [{position:60,label:'Session Date'}] }
+  SessionDate;
+
+  @UI: { lineItem: [{position:70,label:'Start Time'}],
+         identification: [{position:70,label:'Start Time'}] }
+  SessionStart;
+
+  @UI: { lineItem: [{position:80,label:'End Time'}],
+         identification: [{position:80,label:'End Time'}] }
+  SessionEnd;
+
+  @UI.hidden: true
+  LocalCreatedBy;
+  @UI.hidden: true
+  LocalCreatedAt;
+  @UI.hidden: true
+  LocalLastChangedBy;
+  @UI.hidden: true
+  LocalLastChangedAt;
+}
